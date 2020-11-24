@@ -1,4 +1,4 @@
-package com.gasparbarancelli.produtos.model;
+package com.gasparbarancelli.vendas.model;
 
 import org.springframework.lang.NonNull;
 
@@ -26,11 +26,6 @@ public class Produto implements Serializable {
     public Produto() {
     }
 
-    private Produto(@NonNull String descricao, @NonNull BigDecimal valor) {
-       setDescricao(descricao);
-       setValor(valor);
-    }
-
     public Long getId() {
         return id;
     }
@@ -41,14 +36,6 @@ public class Produto implements Serializable {
 
     public BigDecimal getValor() {
         return valor;
-    }
-
-    public void setDescricao(@NonNull String descricao) {
-        this.descricao = Objects.requireNonNull(descricao, "descricao não pode ser nula");
-    }
-
-    public void setValor(@NonNull BigDecimal valor) {
-        this.valor = Objects.requireNonNull(valor, "valor não pode ser nulo");
     }
 
     @Override
@@ -63,5 +50,4 @@ public class Produto implements Serializable {
     public int hashCode() {
         return Objects.hash(id);
     }
-
 }

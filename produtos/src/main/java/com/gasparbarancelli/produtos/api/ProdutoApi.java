@@ -1,8 +1,11 @@
-package com.gasparbarancelli.produtos.model;
+package com.gasparbarancelli.produtos.api;
 
 import com.gasparbarancelli.produtos.dto.ProdutoPersistDto;
 import com.gasparbarancelli.produtos.dto.ProdutoUpdateDto;
 import com.gasparbarancelli.produtos.event.ProdutoPersistEvent;
+import com.gasparbarancelli.produtos.model.Produto;
+import com.gasparbarancelli.produtos.exception.ProdutoNotFoundException;
+import com.gasparbarancelli.produtos.repository.ProdutoRepository;
 import com.gasparbarancelli.produtos.util.JsonUtil;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -24,18 +27,29 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
-@RequestMapping()
+@RequestMapping
 public class ProdutoApi {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProdutoApi.class);
 
-    @Autowired private ProdutoRepository repository;
+    private final ProdutoRepository repository;
 
-    @Autowired private ProdutoModelAssembler produtoModelAssembler;
+    private final ProdutoModelAssembler produtoModelAssembler;
 
-    @Autowired private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
-    @Autowired private ApplicationEventPublisher applicationEventPublisher;
+    private final ApplicationEventPublisher applicationEventPublisher;
+
+    public ProdutoApi(
+            ProdutoRepository repository,
+            ProdutoModelAssembler produtoModelAssembler,
+            ModelMapper modelMapper,
+            ApplicationEventPublisher applicationEventPublisher) {
+        this.repository = repository;
+        this.produtoModelAssembler = produtoModelAssembler;
+        this.modelMapper = modelMapper;
+        this.applicationEventPublisher = applicationEventPublisher;
+    }
 
     @GetMapping
     public CollectionModel<EntityModel<Produto>> all(

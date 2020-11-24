@@ -23,10 +23,10 @@ services:
 
   config:
     container_name: config
-    image: gasparbarancelli/microservices-config:1.0
+    image: gasparbarancelli/microservices-config:2.0
     restart: always
     environment:
-      URI: 'https://github.com/gasparbarancelli/microservices-properties.git'
+      URI: 'https://github.com/gasparbarancelli/microservices.git'
     ports:
       - 8888:8888
     expose:
@@ -77,16 +77,16 @@ services:
     depends_on:
       - discovery
 
-  produtos:
-    container_name: produtos
-    image: gasparbarancelli/microservices-produtos:1.0
-    restart: always
-    environment:
-      CONFIG_SERVER_URL: 'http://config:8888'
-      EUREKA_URL: 'http://discovery:8761/eureka/'
-      JMS_URL: 'tcp://jms:61616'
-      ZIPKIN_URL: 'http://trace:9411/'
-    ports:
-      - 8081:8081
-    depends_on:
-      - discovery
+  #produtos:
+  #  container_name: produtos
+  #  image: gasparbarancelli/microservices-produtos:1.0
+  #  restart: always
+  #  environment:
+  #    CONFIG_SERVER_URL: 'http://config:8888'
+  #    EUREKA_URL: 'http://discovery:8761/eureka/'
+  #    JMS_URL: 'tcp://jms:61616'
+  #    ZIPKIN_URL: 'http://trace:9411/'
+  #  ports:
+  #    - 8081:8081
+  #  depends_on:
+  #    - discovery

@@ -1,6 +1,4 @@
-package com.gasparbarancelli.produtos.config;
-
-import javax.jms.ConnectionFactory;
+package com.gasparbarancelli.vendas.config;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.config.JmsListenerContainerFactory;
 import org.springframework.jms.core.JmsTemplate;
+
+import javax.jms.ConnectionFactory;
 
 @Configuration
 public class JmsConfig {
@@ -37,6 +37,7 @@ public class JmsConfig {
                                                      DefaultJmsListenerContainerFactoryConfigurer configurer) {
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
         configurer.configure(factory, connectionFactory);
+       // factory.setPubSubDomain(true);
         return factory;
     }
 
@@ -44,6 +45,7 @@ public class JmsConfig {
     public JmsTemplate jmsTemplate(){
         JmsTemplate template = new JmsTemplate();
         template.setConnectionFactory(connectionFactory());
+       // template.setPubSubDomain(true);
         return template;
     }
 

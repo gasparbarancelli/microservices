@@ -1,5 +1,7 @@
-package com.gasparbarancelli.produtos.model;
+package com.gasparbarancelli.produtos.api;
 
+import com.gasparbarancelli.produtos.api.ProdutoApi;
+import com.gasparbarancelli.produtos.model.Produto;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;

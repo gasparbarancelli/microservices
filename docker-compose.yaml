@@ -1,0 +1,92 @@
+version: '3'
+services:
+
+  jms:
+    container_name: jms
+    image: rmohr/activemq
+    restart: always
+    ports:
+      - 6161:61616
+      - 8161:8161
+    expose:
+      - "6161"
+      - "8161"
+
+  trace:
+    container_name: trace
+    image: openzipkin/zipkin
+    restart: always
+    ports:
+      - 9411:9411
+    expose:
+      - "9411"
+
+  config:
+    container_name: config
+    image: gasparbarancelli/microservices-config:1.0
+    restart: always
+    environment:
+      URI: 'https://github.com/gasparbarancelli/microservices-properties.git'
+    ports:
+      - 8888:8888
+    expose:
+      - "8888"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8888" ]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+  discovery:
+    container_name: discovery
+    image: gasparbarancelli/microservices-discovery:1.0
+    restart: always
+    environment:
+      CONFIG_SERVER_URL: 'http://config:8888'
+    ports:
+      - 8761:8761
+    expose:
+      - "8761"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8761" ]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    depends_on:
+      - config
+
+  gateway:
+    container_name: gateway
+    image: gasparbarancelli/microservices-gateway:1.0
+    restart: always
+    environment:
+      CONFIG_SERVER_URL: 'http://config:8888'
+      EUREKA_URL: 'http://discovery:8761/eureka/'
+    ports:
+      - 8000:8000
+    expose:
+      - "8000"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8000" ]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    depends_on:
+      - discovery
+
+  produtos:
+    container_name: produtos
+    image: gasparbarancelli/microservices-produtos:1.0
+    restart: always
+    environment:
+      CONFIG_SERVER_URL: 'http://config:8888'
+      EUREKA_URL: 'http://discovery:8761/eureka/'
+      JMS_URL: 'tcp://jms:61616'
+      ZIPKIN_URL: 'http://trace:9411/'
+    ports:
+      - 8081:8081
+    depends_on:
+      - discovery

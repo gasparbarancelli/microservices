@@ -67,22 +67,41 @@ services:
     depends_on:
       - config
 
+  vendas:
+    container_name: vendas
+    image: gasparbarancelli/microservices-vendas:1.0
+    restart: always
+    environment:
+      CONFIG_SERVER_URL: 'http://config:8888'
+      EUREKA_URL: 'http://discovery:8761/eureka/'
+      JMS_URL: 'tcp://jms:61616'
+      ZIPKIN_URL: 'http://trace:9411/'
+    ports:
+      - 8082:8082
+    expose:
+      - "8082"
+    depends_on:
+      - config
+      - discovery
+      - jms
+      - trace
 
-  #cupons:
-  #  container_name: cupons
-  #  image: gasparbarancelli/microservices-cupons:1.0
-  #  restart: always
-  #  environment:
-  #    CONFIG_SERVER_URL: 'http://config:8888'
-  #    EUREKA_URL: 'http://discovery:8761/eureka/'
-  #    REDIS_HOST: 'redis'
-  #  ports:
-  #    - 8083:8083
-  #  expose:
-  #    - "8083"
-  #  depends_on:
-  #    - discovery
-  #    - redis
+  cupons:
+    container_name: cupons
+    image: gasparbarancelli/microservices-cupons:1.0
+    restart: always
+    environment:
+      CONFIG_SERVER_URL: 'http://config:8888'
+      EUREKA_URL: 'http://discovery:8761/eureka/'
+      REDIS_HOST: 'redis'
+      ZIPKIN_URL: 'http://trace:9411/'
+    ports:
+      - 8083:8083
+    expose:
+      - "8083"
+    depends_on:
+      - discovery
+      - redis
 
   gateway:
     container_name: gateway
@@ -102,6 +121,8 @@ services:
       retries: 3
       start_period: 40s
     depends_on:
+      - config
+      - trace
       - discovery
 
   produtos:
@@ -116,4 +137,7 @@ services:
     ports:
       - 8081:8081
     depends_on:
+      - config
       - discovery
+      - jms
+      - trace

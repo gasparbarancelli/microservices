@@ -5,6 +5,7 @@ import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashSet;
@@ -26,6 +27,9 @@ public class Venda {
     @Column(name = "VALOR", nullable = false, scale = 15, precision = 2)
     private BigDecimal valor;
 
+    @Column(name = "DESCONTO", nullable = false, scale = 5, precision = 2)
+    private BigDecimal desconto;
+
     @JsonManagedReference
     @OneToMany(mappedBy = "venda", orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<VendaItem> itens = new HashSet<>();
@@ -34,9 +38,17 @@ public class Venda {
     public Venda() {
     }
 
-    public Venda(@NonNull Set<VendaItem> itens) {
-        setItens(itens);
+    public Venda(@NonNull Set<VendaItem> itens, @NonNull BigDecimal desconto) {
+        this.modify(itens, desconto);
         this.data = LocalDateTime.now();
+    }
+
+    private void aplicarDesconto() {
+        if (desconto.compareTo(BigDecimal.ZERO) > 0) {
+            var valorDesconto = valor.multiply(desconto)
+                    .divide(BigDecimal.valueOf(100), 2, RoundingMode.DOWN);
+            valor = valor.subtract(valorDesconto);
+        }
     }
 
     public Long getId() {
@@ -51,8 +63,14 @@ public class Venda {
         return valor;
     }
 
-    public void setItens(@NonNull Set<VendaItem> itens) {
+    public BigDecimal getDesconto() {
+        return desconto;
+    }
+
+    public void modify(@NonNull Set<VendaItem> itens, @NonNull BigDecimal desconto) {
+        this.desconto = Objects.requireNonNull(desconto, "desconto não pode ser nulo");
         Objects.requireNonNull(itens, "lista de itens não pode ser nula");
+
         itens.forEach(it -> it.setVenda(this));
 
         if (!this.itens.isEmpty()) {
@@ -64,6 +82,8 @@ public class Venda {
         this.valor = itens.stream()
                 .map(VendaItem::getValorTotal)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        this.aplicarDesconto();
     }
 
     public Set<VendaItem> getItens() {

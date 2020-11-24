@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.gasparbarancelli</groupId>
-	<artifactId>vendas</artifactId>
+	<artifactId>cupons</artifactId>
 	<version>1.0</version>
-	<name>vendas</name>
+	<name>cupons</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
@@ -21,9 +21,9 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.openapitools</groupId>
-			<artifactId>jackson-databind-nullable</artifactId>
-			<version>0.2.1</version>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>2.3.9</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springdoc</groupId>
@@ -36,23 +36,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-hateoas</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.flywaydb</groupId>
-			<artifactId>flyway-core</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -81,9 +69,13 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>3.3.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -130,14 +122,14 @@
 						<image>openjdk:15-jdk-slim-buster</image>
 					</from>
 					<to>
-						<image>gasparbarancelli/microservices-vendas:${version}</image>
+						<image>gasparbarancelli/microservices-cupons:${version}</image>
 					</to>
 					<container>
 						<jvmFlags>
-							<jvmFlag>-Xms256m</jvmFlag>
-							<jvmFlag>-Xmx512m</jvmFlag>
+							<jvmFlag>-Xms128m</jvmFlag>
+							<jvmFlag>-Xmx256m</jvmFlag>
 						</jvmFlags>
-						<mainClass>com.gasparbarancelli.vendas.VendasApplication</mainClass>
+						<mainClass>com.gasparbarancelli.cupons.CuponsApplication</mainClass>
 					</container>
 				</configuration>
 			</plugin>

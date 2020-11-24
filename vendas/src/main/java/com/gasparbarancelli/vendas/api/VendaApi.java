@@ -5,7 +5,6 @@ import com.gasparbarancelli.vendas.dto.VendaPersistDto;
 import com.gasparbarancelli.vendas.exception.VendaNotFoundException;
 import com.gasparbarancelli.vendas.model.Venda;
 import com.gasparbarancelli.vendas.repository.VendaRepository;
-import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
@@ -33,8 +32,6 @@ public class VendaApi {
     
     private final VendaModelAssembler vendaModelAssembler;
 
-    private final ModelMapper modelMapper;
-
     private final ApplicationEventPublisher applicationEventPublisher;
 
     private final VendaPersistDtoConverter vendaPersistDtoConverter;
@@ -42,11 +39,9 @@ public class VendaApi {
     public VendaApi(
             VendaRepository repository,
             VendaModelAssembler vendaModelAssembler,
-            ModelMapper modelMapper,
             ApplicationEventPublisher applicationEventPublisher, VendaPersistDtoConverter vendaPersistDtoConverter) {
         this.repository = repository;
         this.vendaModelAssembler = vendaModelAssembler;
-        this.modelMapper = modelMapper;
         this.applicationEventPublisher = applicationEventPublisher;
         this.vendaPersistDtoConverter = vendaPersistDtoConverter;
     }
@@ -98,8 +93,8 @@ public class VendaApi {
         var venda = repository.findById(id)
                 .orElseThrow(() -> new VendaNotFoundException(id));
 
-        var itens = vendaPersistDtoConverter.toVendaItem(vendaPersist);
-        venda.setItens(itens);
+        var novaVenda = vendaPersistDtoConverter.toVenda(vendaPersist);
+        venda.modify(novaVenda.getItens(), novaVenda.getDesconto());
 
         var entityModel = vendaModelAssembler.toModel(repository.save(venda));
 

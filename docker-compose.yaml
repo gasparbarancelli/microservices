@@ -1,6 +1,16 @@
 version: '3'
 services:
 
+  redis:
+    container_name: redis
+    image: redis
+    restart: always
+    hostname: redis
+    ports:
+      - 6379:6379
+    expose:
+      - "6379"
+
   jms:
     container_name: jms
     image: rmohr/activemq
@@ -57,6 +67,23 @@ services:
     depends_on:
       - config
 
+
+  #cupons:
+  #  container_name: cupons
+  #  image: gasparbarancelli/microservices-cupons:1.0
+  #  restart: always
+  #  environment:
+  #    CONFIG_SERVER_URL: 'http://config:8888'
+  #    EUREKA_URL: 'http://discovery:8761/eureka/'
+  #    REDIS_HOST: 'redis'
+  #  ports:
+  #    - 8083:8083
+  #  expose:
+  #    - "8083"
+  #  depends_on:
+  #    - discovery
+  #    - redis
+
   gateway:
     container_name: gateway
     image: gasparbarancelli/microservices-gateway:1.0
@@ -77,16 +104,16 @@ services:
     depends_on:
       - discovery
 
-  #produtos:
-  #  container_name: produtos
-  #  image: gasparbarancelli/microservices-produtos:1.0
-  #  restart: always
-  #  environment:
-  #    CONFIG_SERVER_URL: 'http://config:8888'
-  #    EUREKA_URL: 'http://discovery:8761/eureka/'
-  #    JMS_URL: 'tcp://jms:61616'
-  #    ZIPKIN_URL: 'http://trace:9411/'
-  #  ports:
-  #    - 8081:8081
-  #  depends_on:
-  #    - discovery
+  produtos:
+    container_name: produtos
+    image: gasparbarancelli/microservices-produtos:2.0
+    restart: always
+    environment:
+      CONFIG_SERVER_URL: 'http://config:8888'
+      EUREKA_URL: 'http://discovery:8761/eureka/'
+      JMS_URL: 'tcp://jms:61616'
+      ZIPKIN_URL: 'http://trace:9411/'
+    ports:
+      - 8081:8081
+    depends_on:
+      - discovery

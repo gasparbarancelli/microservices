@@ -131,7 +131,7 @@ services:
 
   email:
     container_name: email
-    image: gasparbarancelli/microservices-email:1.0
+    image: gasparbarancelli/microservices-email:2.0
     restart: always
     environment:
       CONFIG_SERVER_URL: 'http://config:8888'
@@ -147,6 +147,7 @@ services:
     expose:
       - "8084"
     depends_on:
+      - prometheus
       - mongodb
       - config
       - discovery
@@ -155,7 +156,7 @@ services:
 
   cupons:
     container_name: cupons
-    image: gasparbarancelli/microservices-cupons:1.0
+    image: gasparbarancelli/microservices-cupons:2.0
     restart: always
     environment:
       CONFIG_SERVER_URL: 'http://config:8888'
@@ -167,6 +168,8 @@ services:
     expose:
       - "8083"
     depends_on:
+      - config
+      - prometheus
       - discovery
       - redis
 
@@ -188,7 +191,7 @@ services:
 
   produtos:
     container_name: produtos
-    image: gasparbarancelli/microservices-produtos:2.0
+    image: gasparbarancelli/microservices-produtos:3.0
     restart: always
     environment:
       CONFIG_SERVER_URL: 'http://config:8888'
@@ -199,6 +202,7 @@ services:
       - 8081:8081
     depends_on:
       - config
+      - prometheus
       - discovery
       - jms
       - trace

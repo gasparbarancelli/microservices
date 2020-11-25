@@ -26,13 +26,19 @@ scrape_configs:
       - targets: ['vendas:8082']
 
   - job_name: 'produtos'
-      metrics_path: '/actuator/prometheus'
-      scrape_interval: 5s
-      static_configs:
-        - targets: [ 'produtos:8081' ]
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ 'produtos:8081' ]
+
+  - job_name: 'cupons'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ 'email:8083' ]
 
   - job_name: 'email'
-      metrics_path: '/actuator/prometheus'
-      scrape_interval: 5s
-      static_configs:
-        - targets: [ 'email:8084' ]
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ 'email:8084' ]

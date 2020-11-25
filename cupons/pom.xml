@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.gasparbarancelli</groupId>
 	<artifactId>cupons</artifactId>
-	<version>1.0</version>
+	<version>2.0</version>
 	<name>cupons</name>
 	<description>Demo project for Spring Boot</description>
 
@@ -29,6 +29,14 @@
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-ui</artifactId>
 			<version>1.4.8</version>
+		</dependency>
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-prometheus</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

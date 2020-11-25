@@ -206,3 +206,43 @@ services:
       - discovery
       - jms
       - trace
+
+  logspout:
+    image: gliderlabs/logspout:v3
+    command: 'udp://logstash:5000'
+    links:
+      - logstash
+    volumes:
+      - '/var/run/docker.sock:/tmp/docker.sock'
+    depends_on:
+      - elasticsearch
+      - logstash
+      - kibana
+
+  logstash:
+    image: logstash:2.1.1
+    environment:
+      - STDOUT=true
+    links:
+      - elasticsearch
+    depends_on:
+      - elasticsearch
+      - kibana
+    command: 'logstash -e "input { udp { port => 5000 } } output { elasticsearch { hosts => elasticsearch } }"'
+
+  kibana:
+    image: kibana:4.1.2
+    links:
+      - elasticsearch
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+    ports:
+      - 5601:5601
+    depends_on:
+      - elasticsearch
+
+  elasticsearch:
+    image: elasticsearch:1.5.2
+    ports:
+      - 9200:9200
+      - 9300:9300

@@ -1,6 +1,30 @@
 version: '3'
 services:
 
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: monitoring_prometheus
+    restart: unless-stopped
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    expose:
+      - 9090
+    ports:
+      - 9090:9090
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: monitoring_grafana
+    restart: unless-stopped
+    links:
+      - prometheus:prometheus
+    expose:
+      - 3000
+    ports:
+      - 3000:3000
+
   mongodb:
     container_name: mongodb
     image: mongo
@@ -66,12 +90,6 @@ services:
       - 8888:8888
     expose:
       - "8888"
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8888" ]
-      interval: 1m30s
-      timeout: 10s
-      retries: 3
-      start_period: 20s
 
   discovery:
     container_name: discovery
@@ -83,18 +101,12 @@ services:
       - 8761:8761
     expose:
       - "8761"
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8761" ]
-      interval: 1m30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
     depends_on:
       - config
 
   vendas:
     container_name: vendas
-    image: gasparbarancelli/microservices-vendas:2.0
+    image: gasparbarancelli/microservices-vendas:3.0
     restart: always
     environment:
       CONFIG_SERVER_URL: 'http://config:8888'
@@ -111,6 +123,7 @@ services:
       - "8082"
     depends_on:
       - mysql
+      - prometheus
       - config
       - discovery
       - jms
@@ -125,9 +138,9 @@ services:
       EUREKA_URL: 'http://discovery:8761/eureka/'
       JMS_URL: 'tcp://jms:61616'
       ZIPKIN_URL: 'http://trace:9411/'
-      EMAIL_USERNAME: ''
-      EMAIL_PASSWORD: ''
-      EMAIL_FROM: ''
+      EMAIL_USERNAME: 'gasparbarancellijunior'
+      EMAIL_PASSWORD: 'ppcrjurcranplrri'
+      EMAIL_FROM: 'gasparbarancellijunior@yahoo.com'
       MONGODB_HOST: 'mongodb'
     ports:
       - 8084:8084
@@ -168,12 +181,6 @@ services:
       - 8000:8000
     expose:
       - "8000"
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8000" ]
-      interval: 1m30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
     depends_on:
       - config
       - trace

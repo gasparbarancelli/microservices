@@ -1,10 +1,11 @@
 version: '3'
 services:
 
-  mongo:
-    container_name: mongo
+  mongodb:
+    container_name: mongodb
     image: mongo
     restart: always
+    hostname: mongodb
     ports:
       - 27017:27017
     expose:
@@ -14,6 +15,7 @@ services:
     container_name: mysql
     image: mysql:5.7
     restart: always
+    hostname: mysql
     environment:
       MYSQL_DATABASE: 'vendas'
       MYSQL_USER: 'vendas'
@@ -90,24 +92,53 @@ services:
     depends_on:
       - config
 
-  #vendas:
-  #  container_name: vendas
-  #  image: gasparbarancelli/microservices-vendas:1.0
-  #  restart: always
-  #  environment:
-  #    CONFIG_SERVER_URL: 'http://config:8888'
-  #    EUREKA_URL: 'http://discovery:8761/eureka/'
-  #    JMS_URL: 'tcp://jms:61616'
-  #    ZIPKIN_URL: 'http://trace:9411/'
-  #  ports:
-  #    - 8082:8082
-  #  expose:
-  #    - "8082"
-  #  depends_on:
-  #    - config
-  #    - discovery
-  #    - jms
-  #    - trace
+  vendas:
+    container_name: vendas
+    image: gasparbarancelli/microservices-vendas:2.0
+    restart: always
+    environment:
+      CONFIG_SERVER_URL: 'http://config:8888'
+      EUREKA_URL: 'http://discovery:8761/eureka/'
+      JMS_URL: 'tcp://jms:61616'
+      ZIPKIN_URL: 'http://trace:9411/'
+      MYSQL_HOST: 'mysql'
+      MYSQL_PORT: '3306'
+      MYSQL_USERNAME: 'vendas'
+      MYSQL_PASSWORD: 'vendas123'
+    ports:
+      - 8082:8082
+    expose:
+      - "8082"
+    depends_on:
+      - mysql
+      - config
+      - discovery
+      - jms
+      - trace
+
+  email:
+    container_name: email
+    image: gasparbarancelli/microservices-email:1.0
+    restart: always
+    environment:
+      CONFIG_SERVER_URL: 'http://config:8888'
+      EUREKA_URL: 'http://discovery:8761/eureka/'
+      JMS_URL: 'tcp://jms:61616'
+      ZIPKIN_URL: 'http://trace:9411/'
+      EMAIL_USERNAME: ''
+      EMAIL_PASSWORD: ''
+      EMAIL_FROM: ''
+      MONGODB_HOST: 'mongodb'
+    ports:
+      - 8084:8084
+    expose:
+      - "8084"
+    depends_on:
+      - mongodb
+      - config
+      - discovery
+      - jms
+      - trace
 
   cupons:
     container_name: cupons

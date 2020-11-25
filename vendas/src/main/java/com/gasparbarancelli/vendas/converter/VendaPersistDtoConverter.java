@@ -28,7 +28,7 @@ public class VendaPersistDtoConverter {
     public Venda toVenda(VendaPersistDto vendaPersist) {
         var itens = toVendaItem(vendaPersist);
         var desconto = getDesconto(vendaPersist);
-        return new Venda(itens, desconto);
+        return new Venda(itens, desconto, vendaPersist.getEmail());
     }
 
     private BigDecimal getDesconto(VendaPersistDto vendaPersist) {
@@ -38,7 +38,7 @@ public class VendaPersistDtoConverter {
         return BigDecimal.ZERO;
     }
 
-    public Set<VendaItem> toVendaItem(VendaPersistDto vendaPersist) {
+    private Set<VendaItem> toVendaItem(VendaPersistDto vendaPersist) {
         return vendaPersist.getItens().stream()
                 .map(it -> {
                     var produto = produtoRepository.findById(it.getProduto())

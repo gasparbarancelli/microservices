@@ -21,6 +21,9 @@ public class Venda {
     @Column(name = "ID")
     private Long id;
 
+    @Column(name = "EMAIL", nullable = false)
+    private String email;
+
     @Column(name = "DATA", nullable = false)
     private LocalDateTime data;
 
@@ -38,8 +41,8 @@ public class Venda {
     public Venda() {
     }
 
-    public Venda(@NonNull Set<VendaItem> itens, @NonNull BigDecimal desconto) {
-        this.modify(itens, desconto);
+    public Venda(@NonNull Set<VendaItem> itens, @NonNull BigDecimal desconto, @NonNull String email) {
+        this.modify(itens, desconto, email);
         this.data = LocalDateTime.now();
     }
 
@@ -67,8 +70,13 @@ public class Venda {
         return desconto;
     }
 
-    public void modify(@NonNull Set<VendaItem> itens, @NonNull BigDecimal desconto) {
+    public String getEmail() {
+        return email;
+    }
+
+    public void modify(@NonNull Set<VendaItem> itens, @NonNull BigDecimal desconto, @NonNull String email) {
         this.desconto = Objects.requireNonNull(desconto, "desconto não pode ser nulo");
+        this.email = Objects.requireNonNull(email, "email não pode ser nulo");
         Objects.requireNonNull(itens, "lista de itens não pode ser nula");
 
         itens.forEach(it -> it.setVenda(this));

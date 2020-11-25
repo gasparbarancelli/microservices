@@ -1,6 +1,29 @@
 version: '3'
 services:
 
+  mongo:
+    container_name: mongo
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    expose:
+      - "27017"
+
+  mysql:
+    container_name: mysql
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'vendas'
+      MYSQL_USER: 'vendas'
+      MYSQL_PASSWORD: 'vendas123'
+      MYSQL_ROOT_PASSWORD: 'vendas123'
+    ports:
+      - 3307:3306
+    expose:
+      - "3307"
+
   redis:
     container_name: redis
     image: redis
@@ -67,24 +90,24 @@ services:
     depends_on:
       - config
 
-  vendas:
-    container_name: vendas
-    image: gasparbarancelli/microservices-vendas:1.0
-    restart: always
-    environment:
-      CONFIG_SERVER_URL: 'http://config:8888'
-      EUREKA_URL: 'http://discovery:8761/eureka/'
-      JMS_URL: 'tcp://jms:61616'
-      ZIPKIN_URL: 'http://trace:9411/'
-    ports:
-      - 8082:8082
-    expose:
-      - "8082"
-    depends_on:
-      - config
-      - discovery
-      - jms
-      - trace
+  #vendas:
+  #  container_name: vendas
+  #  image: gasparbarancelli/microservices-vendas:1.0
+  #  restart: always
+  #  environment:
+  #    CONFIG_SERVER_URL: 'http://config:8888'
+  #    EUREKA_URL: 'http://discovery:8761/eureka/'
+  #    JMS_URL: 'tcp://jms:61616'
+  #    ZIPKIN_URL: 'http://trace:9411/'
+  #  ports:
+  #    - 8082:8082
+  #  expose:
+  #    - "8082"
+  #  depends_on:
+  #    - config
+  #    - discovery
+  #    - jms
+  #    - trace
 
   cupons:
     container_name: cupons

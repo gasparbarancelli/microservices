@@ -29,7 +29,7 @@ public class ProdutoPersistQueue {
             var produto = objectMapper.readValue(json, Produto.class);
             produtoRepository.save(produto);
         } catch (JsonProcessingException e) {
-            LOGGER.error("Não foi possivel criar uma nova instancia do pedido com base no json recebido", e);
+            LOGGER.error("Não foi possivel criar uma nova instancia do produto com base no json recebido", e);
         }
     }
 

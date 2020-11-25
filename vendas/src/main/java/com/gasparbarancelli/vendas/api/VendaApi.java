@@ -2,6 +2,7 @@ package com.gasparbarancelli.vendas.api;
 
 import com.gasparbarancelli.vendas.converter.VendaPersistDtoConverter;
 import com.gasparbarancelli.vendas.dto.VendaPersistDto;
+import com.gasparbarancelli.vendas.event.EmailVendaPersistEvent;
 import com.gasparbarancelli.vendas.exception.VendaNotFoundException;
 import com.gasparbarancelli.vendas.model.Venda;
 import com.gasparbarancelli.vendas.repository.VendaRepository;
@@ -79,6 +80,8 @@ public class VendaApi {
         var venda = vendaPersistDtoConverter.toVenda(vendaPersist);
         var entityModel = vendaModelAssembler.toModel(repository.save(venda));
 
+        applicationEventPublisher.publishEvent(new EmailVendaPersistEvent(this, venda));
+
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
                 .body(entityModel);
@@ -94,9 +97,11 @@ public class VendaApi {
                 .orElseThrow(() -> new VendaNotFoundException(id));
 
         var novaVenda = vendaPersistDtoConverter.toVenda(vendaPersist);
-        venda.modify(novaVenda.getItens(), novaVenda.getDesconto());
+        venda.modify(novaVenda.getItens(), novaVenda.getDesconto(), novaVenda.getEmail());
 
         var entityModel = vendaModelAssembler.toModel(repository.save(venda));
+
+        applicationEventPublisher.publishEvent(new EmailVendaPersistEvent(this, venda));
 
         return ResponseEntity.ok(entityModel);
     }

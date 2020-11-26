@@ -55,7 +55,6 @@ public class ProdutoApi {
         this.applicationEventPublisher = applicationEventPublisher;
     }
 
-    @PreAuthorize("hasAuthority('SCOPE_TEST')")
     @GetMapping
     public CollectionModel<EntityModel<Produto>> all(
             @NonNull @RequestParam(value = "size", defaultValue = "10", required = false) Integer size,
@@ -82,7 +81,6 @@ public class ProdutoApi {
         return produtoModelAssembler.toModel(produto);
     }
 
-    @PreAuthorize("hasAuthority('SCOPE_TEST')")
     @PostMapping
     public ResponseEntity<EntityModel<Produto>> newProduto(@NonNull @Valid @RequestBody ProdutoPersistDto produtoPersist) {
         LOGGER.info("Inserindo o produto: {}", produtoPersist);

@@ -1,99 +1,176 @@
 {
-	"variables": [],
 	"info": {
+		"_postman_id": "684d6872-bebc-4926-8869-28f551a1847c",
 		"name": "MICROSERVICES",
-		"_postman_id": "57b8e43e-7ac7-2369-acc4-7ac3abbf6179",
-		"description": "",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "POST Produto",
-			"request": {
-				"url": "http://localhost:8081",
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
-					},
-					{
-						"key": "Authorization",
-						"value": "2973fb25-d66a-4f02-9ee1-5c9667984dbd",
-						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"descricao\": \"Caneta\", \"valor\": 80}"
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
 			"name": "GET produtos",
 			"request": {
-				"url": "http://localhost:8000/produtos",
 				"method": "GET",
 				"header": [],
-				"body": {},
-				"description": ""
+				"url": {
+					"raw": "http://localhost:8000/produtos/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"produtos",
+						""
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "GET produto",
 			"request": {
-				"url": "http://localhost:8000/produtos/1",
 				"method": "GET",
 				"header": [],
-				"body": {},
-				"description": ""
+				"url": {
+					"raw": "http://localhost:8000/produtos/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"produtos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Produto",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "2973fb25-d66a-4f02-9ee1-5c9667984dbd"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"descricao\": \"Caneta\", \"valor\": 80}"
+				},
+				"url": {
+					"raw": "http://localhost:8081",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT produto",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"descricao\": \"Cadeira\", \"valor\": 433.50}"
+				},
+				"url": {
+					"raw": "http://localhost:8000/produtos/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"produtos",
+						"1"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "PATCH produto",
 			"request": {
-				"url": "http://localhost:8000/produtos/1",
 				"method": "PATCH",
 				"header": [
 					{
 						"key": "schema",
 						"value": "PRODUCTION",
-						"description": "",
 						"disabled": true
 					},
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
+						"value": "application/json"
 					}
 				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\"descricao\": \"Cadeira Gamer\"}"
 				},
-				"description": ""
+				"url": {
+					"raw": "http://localhost:8000/produtos/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"produtos",
+						"1"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "DELETE produto",
 			"request": {
-				"url": "http://localhost:8000/produtos/1",
 				"method": "DELETE",
 				"header": [],
-				"body": {},
-				"description": ""
+				"url": {
+					"raw": "http://localhost:8000/produtos/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"produtos",
+						"1"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "POST cupons",
 			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://localhost:8000/cupons?desconto=20",
 					"protocol": "http",
@@ -107,141 +184,154 @@
 					"query": [
 						{
 							"key": "desconto",
-							"value": "20",
-							"equals": true,
-							"description": ""
+							"value": "20"
 						}
-					],
-					"variable": []
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"description": ""
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "GET cupom",
 			"request": {
-				"url": "http://localhost:8000/cupons/23jX7",
 				"method": "GET",
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
+						"value": "application/json"
 					}
 				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "POST vendas",
-			"request": {
-				"url": "http://localhost:8000/vendas",
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"itens\": [\n\t\t{\n\t\t\t\"produto\": 1, \n\t\t\t\"quantidade\":  10,\n\t\t\t\"valor\": 2.50\n\t\t}\n\t],\n\t\"email\": \"gasparbarancellijunior@yahoo.com\",\n\t\"cupom\": \"Fx0mXw\"\n}"
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "DELETE venda",
-			"request": {
-				"url": "http://localhost:8000/vendas/98",
-				"method": "DELETE",
-				"header": [],
-				"body": {},
-				"description": ""
+				"url": {
+					"raw": "http://localhost:8000/cupons/23jX7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"cupons",
+						"23jX7"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "GET venda",
 			"request": {
-				"url": "http://localhost:8000/vendas/1",
 				"method": "GET",
 				"header": [],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "PUT venda",
-			"request": {
-				"url": "http://localhost:8000/vendas/98",
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"itens\": [\n\t\t{\n\t\t\t\"produto\": 1, \n\t\t\t\"quantidade\":  10,\n\t\t\t\"valor\": 2.50\n\t\t},\n\t\t{\n\t\t\t\"produto\": 2, \n\t\t\t\"quantidade\":  2,\n\t\t\t\"valor\": 22\n\t\t}\n\t]\n}"
-				},
-				"description": ""
+				"url": {
+					"raw": "http://localhost:8000/vendas/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"vendas",
+						"1"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "GET vendas",
 			"request": {
-				"url": "http://localhost:8000/vendas",
 				"method": "GET",
 				"header": [],
-				"body": {},
-				"description": ""
+				"url": {
+					"raw": "http://localhost:8000/vendas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"vendas"
+					]
+				}
 			},
 			"response": []
 		},
 		{
-			"name": "PUT produto",
+			"name": "POST vendas",
 			"request": {
-				"url": "http://localhost:8000/produtos/1",
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
+						"value": "application/json"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"descricao\": \"Cadeira\", \"valor\": 433.50}"
+					"raw": "{\n\t\"itens\": [\n\t\t{\n\t\t\t\"produto\": 1, \n\t\t\t\"quantidade\":  10,\n\t\t\t\"valor\": 2.50\n\t\t}\n\t],\n\t\"email\": \"gasparbarancellijunior@yahoo.com\",\n\t\"cupom\": \"Fx0mXw\"\n}"
 				},
-				"description": ""
+				"url": {
+					"raw": "http://localhost:8000/vendas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"vendas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT venda",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"itens\": [\n\t\t{\n\t\t\t\"produto\": 1, \n\t\t\t\"quantidade\":  10,\n\t\t\t\"valor\": 2.50\n\t\t},\n\t\t{\n\t\t\t\"produto\": 2, \n\t\t\t\"quantidade\":  2,\n\t\t\t\"valor\": 22\n\t\t}\n\t]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8000/vendas/98",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"vendas",
+						"98"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE venda",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/vendas/98",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"vendas",
+						"98"
+					]
+				}
 			},
 			"response": []
 		}
-	]
+	],
+	"protocolProfileBehavior": {}
 }

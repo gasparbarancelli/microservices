@@ -26,9 +26,9 @@ spring:
       client:
         provider:
           keycloak:
-            token-uri: http://${KEYCLOAK_HOST:localhost}:${KEYCLOAK_PORT:8080}/auth/realms/master/protocol/openid-connect/token
-            authorization-uri: http://${KEYCLOAK_HOST:localhost}:${KEYCLOAK_PORT:8080}/auth/realms/master/protocol/openid-connect/auth
-            userinfo-uri: http://${KEYCLOAK_HOST:localhost}:${KEYCLOAK_PORT:8080}/auth/realms/master/protocol/openid-connect/userinfo
+            token-uri: http://${KEYCLOAK_HOST_TOKEN:localhost}:${KEYCLOAK_PORT:8080}/auth/realms/master/protocol/openid-connect/token
+            authorization-uri: http://${KEYCLOAK_HOST_AUTH:localhost}:${KEYCLOAK_PORT:8080}/auth/realms/master/protocol/openid-connect/auth
+            userinfo-uri: http://${KEYCLOAK_HOST_USER:localhost}:${KEYCLOAK_PORT:8080}/auth/realms/master/protocol/openid-connect/userinfo
             user-name-attribute: preferred_username
         registration:
           keycloak-with-test-scope:

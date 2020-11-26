@@ -12,7 +12,7 @@ eureka:
 
 
 keycloak-client:
-  server-url: http://localhost:18080/auth
+  server-url: http://host.docker.internal:18080/auth
   realm: spring-micro-main
 
 spring:

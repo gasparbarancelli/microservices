@@ -34,12 +34,12 @@ spring:
           keycloak-with-test-scope:
             provider: keycloak
             client-id: spring-with-test-scope
-            client-secret: 891d606c-21e4-470a-876a-1bd781ee6cc1
+            client-secret: df1806aa-d4c6-4284-8051-3ab0df57f68b
             authorization-grant-type: authorization_code
             redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
           keycloak-without-test-scope:
             provider: keycloak
             client-id: spring-without-test-scope
-            client-secret: 49254ac3-5eaf-4383-93e4-9af02e3a32df
+            client-secret: 5cefabc5-674a-448e-82ed-b48e968db2a5
             authorization-grant-type: authorization_code
             redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"

@@ -1,5 +1,5 @@
 server:
-  port: 8000
+  port: 8080
 
 eureka:
   instance:
@@ -10,9 +10,14 @@ eureka:
     instance-info-replication-interval-seconds: 1
     registry-fetch-interval-seconds: 1
 
+
+keycloak-client:
+  server-url: http://localhost:18080/auth
+  realm: spring-micro-main
+
 spring:
   application:
-    name: gateway2
+    name: gateway
   cloud:
     gateway:
       default-filters:
@@ -23,26 +28,23 @@ spring:
           lower-case-service-id: true
   security:
     oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-
       client:
         provider:
           keycloak:
-            token-uri: http://${KEYCLOAK_HOST_TOKEN:localhost}:${KEYCLOAK_PORT:8080}/auth/realms/master/protocol/openid-connect/token
-            authorization-uri: http://${KEYCLOAK_HOST_AUTH:localhost}:${KEYCLOAK_PORT:8080}/auth/realms/master/protocol/openid-connect/auth
-            userinfo-uri: http://${KEYCLOAK_HOST_USER:localhost}:${KEYCLOAK_PORT:8080}/auth/realms/master/protocol/openid-connect/userinfo
+            token-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/token
+            authorization-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/auth
+            userinfo-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/userinfo
+            jwk-set-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/certs
             user-name-attribute: preferred_username
             user-info-authentication-method: header
         registration:
-          keycloak-with-test-scope:
+          keycloak:
             provider: keycloak
-            client-id: spring-with-test-scope
-            client-secret: df1806aa-d4c6-4284-8051-3ab0df57f68b
+            client-id: spring-micro-gateway
+            client-secret: 756b0558-018b-4809-b478-bd5b4995d325
             authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:8000/login/oauth2/code/keycloak
-            scope: openid
-          keycloak-without-test-scope:
-            provider: keycloak
-            client-id: spring-without-test-scope
-            client-secret: 5cefabc5-674a-448e-82ed-b48e968db2a5
-            authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:8000/login/oauth2/code/keycloak
+            redirect-uri: http://localhost:8080/login/oauth2/code/keycloak
             scope: openid

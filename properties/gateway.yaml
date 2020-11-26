@@ -1,0 +1,45 @@
+server:
+  port: 8000
+
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 1
+    lease-expiration-duration-in-seconds: 2
+  client:
+    initial-instance-info-replication-interval-seconds: 0
+    instance-info-replication-interval-seconds: 1
+    registry-fetch-interval-seconds: 1
+
+spring:
+  application:
+    name: gateway2
+  cloud:
+    gateway:
+      default-filters:
+        - TokenRelay
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            token-uri: http://localhost:9001/auth/realms/master/protocol/openid-connect/token
+            authorization-uri: http://localhost:9001/auth/realms/master/protocol/openid-connect/auth
+            userinfo-uri: http://localhost:9001/auth/realms/master/protocol/openid-connect/userinfo
+            user-name-attribute: preferred_username
+        registration:
+          keycloak-with-test-scope:
+            provider: keycloak
+            client-id: spring-with-test-scope
+            client-secret: 891d606c-21e4-470a-876a-1bd781ee6cc1
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
+          keycloak-without-test-scope:
+            provider: keycloak
+            client-id: spring-without-test-scope
+            client-secret: 49254ac3-5eaf-4383-93e4-9af02e3a32df
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"

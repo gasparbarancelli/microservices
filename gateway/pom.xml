@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.gasparbarancelli</groupId>
     <artifactId>gateway</artifactId>
-    <version>1.0</version>
+    <version>4.0</version>
     <name>gateway</name>
     <description>Demo project for Spring Boot</description>
 
@@ -20,6 +20,10 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-oauth2-resource-server</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>

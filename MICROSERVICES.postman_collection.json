@@ -1,0 +1,247 @@
+{
+	"variables": [],
+	"info": {
+		"name": "MICROSERVICES",
+		"_postman_id": "57b8e43e-7ac7-2369-acc4-7ac3abbf6179",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST Produto",
+			"request": {
+				"url": "http://localhost:8081",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "2973fb25-d66a-4f02-9ee1-5c9667984dbd",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"descricao\": \"Caneta\", \"valor\": 80}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET produtos",
+			"request": {
+				"url": "http://localhost:8000/produtos",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET produto",
+			"request": {
+				"url": "http://localhost:8000/produtos/1",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "PATCH produto",
+			"request": {
+				"url": "http://localhost:8000/produtos/1",
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "schema",
+						"value": "PRODUCTION",
+						"description": "",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"descricao\": \"Cadeira Gamer\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE produto",
+			"request": {
+				"url": "http://localhost:8000/produtos/1",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST cupons",
+			"request": {
+				"url": {
+					"raw": "http://localhost:8000/cupons?desconto=20",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"cupons"
+					],
+					"query": [
+						{
+							"key": "desconto",
+							"value": "20",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET cupom",
+			"request": {
+				"url": "http://localhost:8000/cupons/23jX7",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST vendas",
+			"request": {
+				"url": "http://localhost:8000/vendas",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"itens\": [\n\t\t{\n\t\t\t\"produto\": 1, \n\t\t\t\"quantidade\":  10,\n\t\t\t\"valor\": 2.50\n\t\t}\n\t],\n\t\"email\": \"gasparbarancellijunior@yahoo.com\",\n\t\"cupom\": \"Fx0mXw\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE venda",
+			"request": {
+				"url": "http://localhost:8000/vendas/98",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET venda",
+			"request": {
+				"url": "http://localhost:8000/vendas/1",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "PUT venda",
+			"request": {
+				"url": "http://localhost:8000/vendas/98",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"itens\": [\n\t\t{\n\t\t\t\"produto\": 1, \n\t\t\t\"quantidade\":  10,\n\t\t\t\"valor\": 2.50\n\t\t},\n\t\t{\n\t\t\t\"produto\": 2, \n\t\t\t\"quantidade\":  2,\n\t\t\t\"valor\": 22\n\t\t}\n\t]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET vendas",
+			"request": {
+				"url": "http://localhost:8000/vendas",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "PUT produto",
+			"request": {
+				"url": "http://localhost:8000/produtos/1",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"descricao\": \"Cadeira\", \"valor\": 433.50}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

@@ -18,6 +18,10 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -51,6 +55,7 @@ public class ProdutoApi {
         this.applicationEventPublisher = applicationEventPublisher;
     }
 
+    @PreAuthorize("hasAuthority('SCOPE_TEST')")
     @GetMapping
     public CollectionModel<EntityModel<Produto>> all(
             @NonNull @RequestParam(value = "size", defaultValue = "10", required = false) Integer size,
@@ -67,6 +72,7 @@ public class ProdutoApi {
                 .withSelfRel());
     }
 
+    @PreAuthorize("hasAuthority('SCOPE_TEST')")
     @GetMapping("{id}")
     public EntityModel<Produto> one(@NonNull @PathVariable("id") Long id) {
         LOGGER.info("Buscando o produto: id = {}", id);
@@ -76,6 +82,7 @@ public class ProdutoApi {
         return produtoModelAssembler.toModel(produto);
     }
 
+    @PreAuthorize("hasAuthority('SCOPE_TEST')")
     @PostMapping
     public ResponseEntity<EntityModel<Produto>> newProduto(@NonNull @Valid @RequestBody ProdutoPersistDto produtoPersist) {
         LOGGER.info("Inserindo o produto: {}", produtoPersist);

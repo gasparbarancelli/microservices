@@ -8,6 +8,63 @@
 	},
 	"item": [
 		{
+			"name": "Login",
+			"request": {
+				"url": "http://host.docker.internal:18080/auth/realms/spring-micro-main/protocol/openid-connect/token",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "spring-micro-gateway",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "gaspar",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "a36096e0-4278-4ac9-b6aa-211be068cba5",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "openid",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
 			"name": "POST Produto",
 			"request": {
 				"url": "http://localhost:8080/produtos/",
@@ -26,7 +83,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"descricao\": \"Caneta\", \"valor\": 80}"
+					"raw": "{\"descricao\": \"Cadeira\", \"valor\": 80}"
 				},
 				"description": ""
 			},
@@ -40,7 +97,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI3WDR1TWhjZ0NCbFR1MnNqMmRxMkpUX2d5U2xoS2RxbXdhVTU4Q0ZFanVzIn0.eyJleHAiOjE2MDY0ODQ1OTYsImlhdCI6MTYwNjQ4NDI5NiwiYXV0aF90aW1lIjoxNjA2NDg0Mjk2LCJqdGkiOiJkODFmNzRhMi1jMjM2LTRlMGMtYTM5NC1mM2U2ZDYzOTI1N2EiLCJpc3MiOiJodHRwOi8vaG9zdC5kb2NrZXIuaW50ZXJuYWw6MTgwODAvYXV0aC9yZWFsbXMvc3ByaW5nLW1pY3JvLW1haW4iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiMDIwOTY5MWItYTY3Ni00ZDUyLTkzNjItYTVhNzliOTQyNGEyIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoic3ByaW5nLW1pY3JvLWdhdGV3YXkiLCJub25jZSI6IjRpcU1KNi12ckJFOUpWZjFreUFpeEIwcU1VMXBJdWsxc3FUUTRieEFCa1kiLCJzZXNzaW9uX3N0YXRlIjoiNjJkMTNlYzgtYjgzZi00ZTY1LThhZTUtYmMxNzE0YTlmYzc4IiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJvcGVuaWQgZW1haWwgcHJvZmlsZSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwicHJlZmVycmVkX3VzZXJuYW1lIjoiZ2FzcGFyIiwiZW1haWwiOiJnYXNwYXJiYXJhbmNlbGxpQGdtYWlsLmNvbSJ9.liLIBCnKydCA89ubGAgop1S2wcG25eh5ITh7wRvqJ3zJ10RWXGUr6NkqU7DTbbkWUhjXiknbgQFPN7VEudeEyINSkFE94_zMcvKjOonClkwSD2qoh39Vy8-2owYbAiDhi_dJAQwARfED8bkyg86phkgexNNDdLKcIHPPZzxtN4v_fA08km1deALTnH8DTRPsAW6JLhgcIl0nvoA010-CPzz4vosBG0DNcXg7iVd03xaU9FLavTln2R8xg_NgrcmJpQKLZAbNTVEhfVS4iOx1VIEafkrfopuXdRyi96bNQkqoMZZBMZqhu8muLxgrFLmaL1qgn_gZRDq_pcGA02KJxQ",
+						"value": "bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI3WDR1TWhjZ0NCbFR1MnNqMmRxMkpUX2d5U2xoS2RxbXdhVTU4Q0ZFanVzIn0.eyJleHAiOjE2MDY0OTQ0ODgsImlhdCI6MTYwNjQ5NDE4OCwianRpIjoiNWRlZjZlYWYtMWEyYy00ZjEwLWIzMjQtNGM2N2FiMTcwNTlhIiwiaXNzIjoiaHR0cDovL2hvc3QuZG9ja2VyLmludGVybmFsOjE4MDgwL2F1dGgvcmVhbG1zL3NwcmluZy1taWNyby1tYWluIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjAyMDk2OTFiLWE2NzYtNGQ1Mi05MzYyLWE1YTc5Yjk0MjRhMiIsInR5cCI6IkJlYXJlciIsImF6cCI6InNwcmluZy1taWNyby1nYXRld2F5Iiwic2Vzc2lvbl9zdGF0ZSI6ImNiOGZmNDQ2LTVjOWQtNGFiMi1hMTA0LTI3MWVjMThlYzU1MCIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoib3BlbmlkIFRFU1QgZW1haWwgcHJvZmlsZSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwicHJlZmVycmVkX3VzZXJuYW1lIjoiZ2FzcGFyIiwiZW1haWwiOiJnYXNwYXJiYXJhbmNlbGxpQGdtYWlsLmNvbSJ9.oNhvfFfqAEryUT2dPYPxMhXWa9MVU6neuWWAi6bdQJ4LOSAAHD8bwyzbW4oP5HoOzAT2y-8aJvc7Xk_cWHe6lDwLACOd3vXXZjdVT0ty10uAnkWby3JCVP6CR_dGYEJzw4wqGthGoERv41AvQNY9KzuRSvOxreFOrmmecdeDSMMH8ucgn438KMBx3SdSRssec8GcVRx9VEehn5NuqVbcOWC9ThsAfoimmvnmk4IlgonCHZhIEzSDP9mv_vN1fkrh7RU2OuQ71tBjXn3qqv2YwOAQ4m3-PGpTjLf22RAnYrDQE1iWhP1R9EBtTp_2U8NFZU5zleVI88EtpMM2dRgDKQ",
 						"description": ""
 					}
 				],
@@ -57,7 +114,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI3WDR1TWhjZ0NCbFR1MnNqMmRxMkpUX2d5U2xoS2RxbXdhVTU4Q0ZFanVzIn0.eyJleHAiOjE2MDY0ODQ1OTYsImlhdCI6MTYwNjQ4NDI5NiwiYXV0aF90aW1lIjoxNjA2NDg0Mjk2LCJqdGkiOiJkODFmNzRhMi1jMjM2LTRlMGMtYTM5NC1mM2U2ZDYzOTI1N2EiLCJpc3MiOiJodHRwOi8vaG9zdC5kb2NrZXIuaW50ZXJuYWw6MTgwODAvYXV0aC9yZWFsbXMvc3ByaW5nLW1pY3JvLW1haW4iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiMDIwOTY5MWItYTY3Ni00ZDUyLTkzNjItYTVhNzliOTQyNGEyIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoic3ByaW5nLW1pY3JvLWdhdGV3YXkiLCJub25jZSI6IjRpcU1KNi12ckJFOUpWZjFreUFpeEIwcU1VMXBJdWsxc3FUUTRieEFCa1kiLCJzZXNzaW9uX3N0YXRlIjoiNjJkMTNlYzgtYjgzZi00ZTY1LThhZTUtYmMxNzE0YTlmYzc4IiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJvcGVuaWQgZW1haWwgcHJvZmlsZSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwicHJlZmVycmVkX3VzZXJuYW1lIjoiZ2FzcGFyIiwiZW1haWwiOiJnYXNwYXJiYXJhbmNlbGxpQGdtYWlsLmNvbSJ9.liLIBCnKydCA89ubGAgop1S2wcG25eh5ITh7wRvqJ3zJ10RWXGUr6NkqU7DTbbkWUhjXiknbgQFPN7VEudeEyINSkFE94_zMcvKjOonClkwSD2qoh39Vy8-2owYbAiDhi_dJAQwARfED8bkyg86phkgexNNDdLKcIHPPZzxtN4v_fA08km1deALTnH8DTRPsAW6JLhgcIl0nvoA010-CPzz4vosBG0DNcXg7iVd03xaU9FLavTln2R8xg_NgrcmJpQKLZAbNTVEhfVS4iOx1VIEafkrfopuXdRyi96bNQkqoMZZBMZqhu8muLxgrFLmaL1qgn_gZRDq_pcGA02KJxQ",
+						"value": "bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI3WDR1TWhjZ0NCbFR1MnNqMmRxMkpUX2d5U2xoS2RxbXdhVTU4Q0ZFanVzIn0.eyJleHAiOjE2MDY0ODU4ODksImlhdCI6MTYwNjQ4NTU4OSwiYXV0aF90aW1lIjoxNjA2NDg1NTg5LCJqdGkiOiIwNDQ5YWY2YS01ZDc2LTRlYWMtODc4Ni1hMWQ0YzlhNzViNmIiLCJpc3MiOiJodHRwOi8vaG9zdC5kb2NrZXIuaW50ZXJuYWw6MTgwODAvYXV0aC9yZWFsbXMvc3ByaW5nLW1pY3JvLW1haW4iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiMDIwOTY5MWItYTY3Ni00ZDUyLTkzNjItYTVhNzliOTQyNGEyIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoic3ByaW5nLW1pY3JvLWdhdGV3YXkiLCJub25jZSI6IjhWQnlJMTVFZkpjVGJreGJMaHEyWXJnRmhPaF8tSDU2dllrSFRSc3RVSFUiLCJzZXNzaW9uX3N0YXRlIjoiMmM1MTE0ZDItMzgwMy00ZGMzLThiZTgtOGI5NTFkOTQwOTk5IiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJvcGVuaWQgVEVTVCBlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJnYXNwYXIiLCJlbWFpbCI6Imdhc3BhcmJhcmFuY2VsbGlAZ21haWwuY29tIn0.oMhepkUKBxoSn8zVg3DA72Jpe9AiPWtPRCSKZfpTiqya5Lxbg_GgG9B1UeP7dFUgn6cOUs9JMIg46CXMNlBegi-YZHiPoflqtcJecVUs5E2ZTDJH3vU4BaVXK5qniWBHDi0gWCld8fjuEuurMmV2IL2CnMprOVt28mzfbZWbzqorBMGksgxLVu2eoJhWoh6hLiiq5dD4wfXGX2WJpuZD6PG5TB27DQTPPcj2RiSE4myug_uWwHVR0kNqGt8f0YeMR5AM8SOvnwRrsoUFYrr5KZoeZFcXQqya9zpqhWoLfngAJ_IoBKgwCfjia79iamLm9ZNG98K-Kty1Mslh5EZ0-w",
 						"description": ""
 					}
 				],
@@ -69,14 +126,13 @@
 		{
 			"name": "PATCH produto",
 			"request": {
-				"url": "http://localhost:8000/produtos/1",
+				"url": "http://localhost:8080/produtos/1",
 				"method": "PATCH",
 				"header": [
 					{
-						"key": "schema",
-						"value": "PRODUCTION",
-						"description": "",
-						"disabled": true
+						"key": "Authorization",
+						"value": "bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI3WDR1TWhjZ0NCbFR1MnNqMmRxMkpUX2d5U2xoS2RxbXdhVTU4Q0ZFanVzIn0.eyJleHAiOjE2MDY0ODQ1OTYsImlhdCI6MTYwNjQ4NDI5NiwiYXV0aF90aW1lIjoxNjA2NDg0Mjk2LCJqdGkiOiJkODFmNzRhMi1jMjM2LTRlMGMtYTM5NC1mM2U2ZDYzOTI1N2EiLCJpc3MiOiJodHRwOi8vaG9zdC5kb2NrZXIuaW50ZXJuYWw6MTgwODAvYXV0aC9yZWFsbXMvc3ByaW5nLW1pY3JvLW1haW4iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiMDIwOTY5MWItYTY3Ni00ZDUyLTkzNjItYTVhNzliOTQyNGEyIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoic3ByaW5nLW1pY3JvLWdhdGV3YXkiLCJub25jZSI6IjRpcU1KNi12ckJFOUpWZjFreUFpeEIwcU1VMXBJdWsxc3FUUTRieEFCa1kiLCJzZXNzaW9uX3N0YXRlIjoiNjJkMTNlYzgtYjgzZi00ZTY1LThhZTUtYmMxNzE0YTlmYzc4IiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJvcGVuaWQgZW1haWwgcHJvZmlsZSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwicHJlZmVycmVkX3VzZXJuYW1lIjoiZ2FzcGFyIiwiZW1haWwiOiJnYXNwYXJiYXJhbmNlbGxpQGdtYWlsLmNvbSJ9.liLIBCnKydCA89ubGAgop1S2wcG25eh5ITh7wRvqJ3zJ10RWXGUr6NkqU7DTbbkWUhjXiknbgQFPN7VEudeEyINSkFE94_zMcvKjOonClkwSD2qoh39Vy8-2owYbAiDhi_dJAQwARfED8bkyg86phkgexNNDdLKcIHPPZzxtN4v_fA08km1deALTnH8DTRPsAW6JLhgcIl0nvoA010-CPzz4vosBG0DNcXg7iVd03xaU9FLavTln2R8xg_NgrcmJpQKLZAbNTVEhfVS4iOx1VIEafkrfopuXdRyi96bNQkqoMZZBMZqhu8muLxgrFLmaL1qgn_gZRDq_pcGA02KJxQ",
+						"description": ""
 					},
 					{
 						"key": "Content-Type",
@@ -95,7 +151,7 @@
 		{
 			"name": "DELETE produto",
 			"request": {
-				"url": "http://localhost:8080/produtos/1",
+				"url": "http://localhost:8080/produtos/2",
 				"method": "DELETE",
 				"header": [
 					{
@@ -113,14 +169,15 @@
 			"name": "POST cupons",
 			"request": {
 				"url": {
-					"raw": "http://localhost:8000/cupons?desconto=20",
+					"raw": "http://localhost:8080/cupons/?desconto=20",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8000",
+					"port": "8080",
 					"path": [
-						"cupons"
+						"cupons",
+						""
 					],
 					"query": [
 						{
@@ -137,6 +194,11 @@
 					{
 						"key": "Content-Type",
 						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI3WDR1TWhjZ0NCbFR1MnNqMmRxMkpUX2d5U2xoS2RxbXdhVTU4Q0ZFanVzIn0.eyJleHAiOjE2MDY0ODQ1OTYsImlhdCI6MTYwNjQ4NDI5NiwiYXV0aF90aW1lIjoxNjA2NDg0Mjk2LCJqdGkiOiJkODFmNzRhMi1jMjM2LTRlMGMtYTM5NC1mM2U2ZDYzOTI1N2EiLCJpc3MiOiJodHRwOi8vaG9zdC5kb2NrZXIuaW50ZXJuYWw6MTgwODAvYXV0aC9yZWFsbXMvc3ByaW5nLW1pY3JvLW1haW4iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiMDIwOTY5MWItYTY3Ni00ZDUyLTkzNjItYTVhNzliOTQyNGEyIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoic3ByaW5nLW1pY3JvLWdhdGV3YXkiLCJub25jZSI6IjRpcU1KNi12ckJFOUpWZjFreUFpeEIwcU1VMXBJdWsxc3FUUTRieEFCa1kiLCJzZXNzaW9uX3N0YXRlIjoiNjJkMTNlYzgtYjgzZi00ZTY1LThhZTUtYmMxNzE0YTlmYzc4IiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJvcGVuaWQgZW1haWwgcHJvZmlsZSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwicHJlZmVycmVkX3VzZXJuYW1lIjoiZ2FzcGFyIiwiZW1haWwiOiJnYXNwYXJiYXJhbmNlbGxpQGdtYWlsLmNvbSJ9.liLIBCnKydCA89ubGAgop1S2wcG25eh5ITh7wRvqJ3zJ10RWXGUr6NkqU7DTbbkWUhjXiknbgQFPN7VEudeEyINSkFE94_zMcvKjOonClkwSD2qoh39Vy8-2owYbAiDhi_dJAQwARfED8bkyg86phkgexNNDdLKcIHPPZzxtN4v_fA08km1deALTnH8DTRPsAW6JLhgcIl0nvoA010-CPzz4vosBG0DNcXg7iVd03xaU9FLavTln2R8xg_NgrcmJpQKLZAbNTVEhfVS4iOx1VIEafkrfopuXdRyi96bNQkqoMZZBMZqhu8muLxgrFLmaL1qgn_gZRDq_pcGA02KJxQ",
 						"description": ""
 					}
 				],
@@ -201,7 +263,7 @@
 		{
 			"name": "DELETE venda",
 			"request": {
-				"url": "http://localhost:8080/vendas/98",
+				"url": "http://localhost:8080/vendas/2",
 				"method": "DELETE",
 				"header": [
 					{

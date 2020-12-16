@@ -3,14 +3,13 @@ package com.gasparbarancelli.produtos.api;
 import com.gasparbarancelli.produtos.dto.ProdutoPersistDto;
 import com.gasparbarancelli.produtos.dto.ProdutoUpdateDto;
 import com.gasparbarancelli.produtos.event.ProdutoPersistEvent;
-import com.gasparbarancelli.produtos.model.Produto;
 import com.gasparbarancelli.produtos.exception.ProdutoNotFoundException;
+import com.gasparbarancelli.produtos.model.Produto;
 import com.gasparbarancelli.produtos.repository.ProdutoRepository;
 import com.gasparbarancelli.produtos.util.JsonUtil;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.hateoas.CollectionModel;
@@ -18,10 +17,6 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -71,7 +66,6 @@ public class ProdutoApi {
                 .withSelfRel());
     }
 
-    @PreAuthorize("hasAuthority('SCOPE_TEST')")
     @GetMapping("{id}")
     public EntityModel<Produto> one(@NonNull @PathVariable("id") Long id) {
         LOGGER.info("Buscando o produto: id = {}", id);

@@ -1,46 +1,6 @@
 version: '3'
 services:
 
-  postgres:
-    image: postgres
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    environment:
-      POSTGRES_DB: keycloak
-      POSTGRES_USER: keycloak
-      POSTGRES_PASSWORD: password
-    ports:
-      - 5432:5432
-    expose:
-      - 5432
-
-  keycloak:
-    image: jboss/keycloak:11.0.0
-    container_name: keycloak
-    restart: on-failure
-    volumes:
-      - ./realm-export.json:/tmp/keycloak/config/realm-export.json
-    environment:
-      DB_VENDOR: POSTGRES
-      DB_ADDR: postgres
-      DB_DATABASE: keycloak
-      DB_USER: keycloak
-      DB_SCHEMA: public
-      DB_PASSWORD: password
-      KEYCLOAK_USER: admin
-      KEYCLOAK_PASSWORD: admin
-      KEYCLOAK_IMPORT: /tmp/keycloak/config/realm-export.json
-    command:
-      - "-b"
-      - "0.0.0.0"
-      - "-Djboss.socket.binding.port-offset=10000"
-    expose:
-      - 18080
-    ports:
-      - 18080:18080
-    depends_on:
-      - postgres
-
   prometheus:
     image: prom/prometheus:latest
     container_name: monitoring_prometheus
@@ -113,10 +73,16 @@ services:
 
   trace:
     container_name: trace
-    image: openzipkin/zipkin
+    image: jaegertracing/all-in-one:1.21
     restart: always
+    environment:
+      COLLECTOR_ZIPKIN_HTTP_PORT: 9411
     ports:
       - 9411:9411
+      - 5778:5778
+      - 16686:16686
+      - 14268:14268
+      - 14250:14250
     expose:
       - "9411"
 
@@ -159,140 +125,3 @@ services:
     ports:
       - 9200:9200
       - 9300:9300
-
-  config:
-    container_name: config
-    image: gasparbarancelli/microservices-config:2.0
-    restart: always
-    environment:
-      URI: 'https://github.com/gasparbarancelli/microservices.git'
-    ports:
-      - 8888:8888
-    expose:
-      - "8888"
-
-  discovery:
-    container_name: discovery
-    image: gasparbarancelli/microservices-discovery:1.0
-    restart: always
-    environment:
-      CONFIG_SERVER_URL: 'http://config:8888'
-    ports:
-      - 8761:8761
-    expose:
-      - "8761"
-    depends_on:
-      - config
-
-  gateway:
-    container_name: gateway
-    image: gasparbarancelli/microservices-gateway:4.0
-    restart: always
-    environment:
-      CONFIG_SERVER_URL: 'http://config:8888'
-      EUREKA_URL: 'http://discovery:8761/eureka/'
-      keycloak-client.server-url: 'http://host.docker.internal:18080/auth'
-    ports:
-      - 8080:8080
-    expose:
-      - "8080"
-    depends_on:
-      - config
-      - trace
-      - discovery
-
-  produtos:
-    container_name: produtos
-    image: gasparbarancelli/microservices-produtos:4.0
-    restart: always
-    environment:
-      CONFIG_SERVER_URL: 'http://config:8888'
-      EUREKA_URL: 'http://discovery:8761/eureka/'
-      JMS_URL: 'tcp://jms:61616'
-      ZIPKIN_URL: 'http://trace:9411/'
-      keycloak-client.server-url: 'http://host.docker.internal:18080/auth'
-    ports:
-      - 8081:8081
-    depends_on:
-      - config
-      - prometheus
-      - discovery
-      - jms
-      - trace
-
-  vendas:
-    container_name: vendas
-    image: gasparbarancelli/microservices-vendas:4.0
-    restart: always
-    environment:
-      CONFIG_SERVER_URL: 'http://config:8888'
-      EUREKA_URL: 'http://discovery:8761/eureka/'
-      JMS_URL: 'tcp://jms:61616'
-      ZIPKIN_URL: 'http://trace:9411/'
-      MYSQL_HOST: 'mysql'
-      MYSQL_PORT: '3306'
-      MYSQL_USERNAME: 'vendas'
-      MYSQL_PASSWORD: 'vendas123'
-      keycloak-client.server-url: 'http://host.docker.internal:18080/auth'
-    ports:
-      - 8082:8082
-    expose:
-      - "8082"
-    depends_on:
-      - mysql
-      - prometheus
-      - config
-      - discovery
-      - jms
-      - trace
-
-  email:
-    container_name: email
-    image: gasparbarancelli/microservices-email:3.0
-    restart: always
-    environment:
-      CONFIG_SERVER_URL: 'http://config:8888'
-      EUREKA_URL: 'http://discovery:8761/eureka/'
-      JMS_URL: 'tcp://jms:61616'
-      ZIPKIN_URL: 'http://trace:9411/'
-      EMAIL_USERNAME: 'gasparbarancellijunior'
-      EMAIL_PASSWORD: 'ppcrjurcranplrri'
-      EMAIL_FROM: 'gasparbarancellijunior@yahoo.com'
-      MONGODB_HOST: 'mongodb'
-      keycloak-client.server-url: 'http://host.docker.internal:18080/auth'
-    ports:
-      - 8084:8084
-    expose:
-      - "8084"
-    depends_on:
-      - prometheus
-      - mongodb
-      - config
-      - discovery
-      - jms
-      - trace
-
-  cupons:
-    container_name: cupons
-    image: gasparbarancelli/microservices-cupons:3.0
-    restart: always
-    environment:
-      CONFIG_SERVER_URL: 'http://config:8888'
-      EUREKA_URL: 'http://discovery:8761/eureka/'
-      REDIS_HOST: 'redis'
-      ZIPKIN_URL: 'http://trace:9411/'
-      keycloak-client.server-url: 'http://host.docker.internal:18080/auth'
-    ports:
-      - 8083:8083
-    expose:
-      - "8083"
-    depends_on:
-      - config
-      - prometheus
-      - discovery
-      - redis
-
-volumes:
-  postgres_data:
-    name: keycloak_postgres_data
-    driver: local

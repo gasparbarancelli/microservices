@@ -17,14 +17,4 @@ public class GatewayApplication {
         SpringApplication.run(GatewayApplication.class, args);
     }
 
-    @GetMapping(value = "/token")
-    public Mono<String> getHome(@RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient authorizedClient) {
-        return Mono.just(authorizedClient.getAccessToken().getTokenValue());
-    }
-
-    @GetMapping("/")
-    public Mono<String> index(WebSession session) {
-        return Mono.just(session.getId());
-    }
-
 }

@@ -10,42 +10,14 @@ eureka:
     instance-info-replication-interval-seconds: 1
     registry-fetch-interval-seconds: 1
 
-
-keycloak-client:
-  server-url: http://${KEYCLOAK_HOST:host.docker.internal}:18080/auth
-  realm: spring-micro-main
-
 spring:
   application:
     name: gateway
   cloud:
     gateway:
       default-filters:
-        - TokenRelay
         - RemoveRequestHeader=Cookie
       discovery:
         locator:
           enabled: true
           lower-case-service-id: true
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          jwk-set-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/certs
-      client:
-        provider:
-          keycloak:
-            token-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/token
-            authorization-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/auth
-            userinfo-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/userinfo
-            jwk-set-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/certs
-            user-name-attribute: preferred_username
-            user-info-authentication-method: header
-        registration:
-          keycloak:
-            provider: keycloak
-            client-id: spring-micro-gateway
-            client-secret: 48dbf80c-64e7-458a-b268-3297cba92e85
-            authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:8080/login/oauth2/code/keycloak
-            scope: openid

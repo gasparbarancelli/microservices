@@ -45,7 +45,7 @@ spring:
           keycloak:
             provider: keycloak
             client-id: spring-micro-gateway
-            client-secret: a36096e0-4278-4ac9-b6aa-211be068cba5
+            client-secret: 48dbf80c-64e7-458a-b268-3297cba92e85
             authorization-grant-type: authorization_code
             redirect-uri: http://localhost:8080/login/oauth2/code/keycloak
             scope: openid
